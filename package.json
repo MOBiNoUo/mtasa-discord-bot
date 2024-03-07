@@ -1,0 +1,25 @@
+{
+  "name": "mtasa-discord-bot",
+  "version": "1.0.0",
+  "description": "the Discord bot for Counting & showing players in status",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "mtasa",
+    "gtasa"
+  ],
+  "author": "OuoMen",
+  "license": "ISC",
+  "dependencies": {
+    "discord-api-types": "^0.37.71",
+    "discord.js": "^14.14.1",
+    "fs": "^0.0.1-security",
+    "lodash.uniqwith": "^4.5.0",
+    "moment": "^2.30.1",
+    "mtasa-informations": "^1.1.3"
+  }
+}
