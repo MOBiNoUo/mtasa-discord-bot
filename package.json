@@ -4,7 +4,7 @@
   "description": "the Discord bot for Counting & showing players in status",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
   "keywords": [
     "discord",
@@ -15,16 +15,10 @@
   "author": "OuoMen",
   "license": "ISC",
   "dependencies": {
-    "@999-cs/game-stats": "^1.0.3",
     "axios": "^1.6.7",
     "discord-api-types": "^0.37.71",
     "discord.js": "^14.14.1",
     "dotenv": "^16.4.5",
-    "env": "^0.0.2",
-    "fs": "^0.0.1-security",
-    "lodash.uniqwith": "^4.5.0",
-    "moment": "^2.30.1",
-    "mtasa-api": "^0.3.0",
-    "mtasa-informations": "^1.1.3"
+    "env": "^0.0.2"
   }
 }
