@@ -11,9 +11,9 @@ const client = new Client({ intents: [ GatewayIntentBits.Guilds, GatewayIntentBi
   try {
     console.log('Getting Information from Mtasa Server...');
     const query =  await mtasa.getBy(process.env.SERVER_IP, process.env.SERVER_ASEPORT);
-    if (query.status == false) {
+    if (!query) {
       console.clear();
-      console.log('\x1b[31m%s\x1b[0m', '[API-ERROR]: ' + query.error);
+      console.log('\x1b[31m%s\x1b[0m', '[API-ERROR]: ' + query);
       process.exit();
     }
     mtasa_json = query;
@@ -46,7 +46,7 @@ client.once('ready', () => {
             console.log(`Commands created (or Reloaded) for Guild: ${guild.name}`);
             if (mtasa_json) {
                 client.user.setPresence({
-                    activities: [{ name: `${mtasa_json.data.num_players} Player on Server !`, type: ActivityType.Watching }],
+                    activities: [{ name: `${mtasa_json.players} Player on Server !`, type: ActivityType.Watching }],
                     status: 'online',
                 });
             }
@@ -74,15 +74,15 @@ client.on('interactionCreate', async (interaction) => {
   const { commandName } = interaction;
   if (commandName == 'info') {
     const query =  await mtasa.getBy(process.env.SERVER_IP, process.env.SERVER_PORT);
-    if (query.status == false) {
+    if (!query) {
       console.clear();
-      console.log('\x1b[31m%s\x1b[0m', '[API-ERROR]: ' + query.error);
+      console.log('\x1b[31m%s\x1b[0m', '[API-ERROR]: ' + query);
       process.exit();
     }
   const infoEmbed = new EmbedBuilder()
             .setColor(0x0099FF)
-            .setTitle(query.data.servername)
-            .setDescription(`:person_pouting: Players Count: ${query.data.num_players} \n:slot_machine: Max Players: ${query.data.max_players}\n:game_die: GameMode: ${query.data.gametype}\n:anchor: Address: ${query.data.gq_address}:${query.data.port}\n:key: Password: ${query.data.password === '0' ? 'No' : 'Yes'}`)
+            .setTitle(query.name)
+            .setDescription(`:person_pouting: Players Count: ${query.players} \n:slot_machine: Max Players: ${query.max_players}\n:game_die: GameMode: ${query.gamemode}\n:anchor: Address: GTA-MP.IR:22003\n:key: Password: No`)
             .setTimestamp()
             const buttons = new ActionRowBuilder()
             .addComponents(
@@ -103,12 +103,12 @@ client.on('interactionCreate', async (interaction) => {
 async function updatePresence() {
   if (mtasa_json) {
       const res = await mtasa.getBy(process.env.SERVER_IP, process.env.SERVER_PORT);
-      if (res.status == false) {
+      if (!res) {
         console.clear();
-        console.log('\x1b[31m%s\x1b[0m', '[API-ERROR]: ' + res.error);
+        console.log('\x1b[31m%s\x1b[0m', '[API-ERROR]: ' + res);
         process.exit();
       }
-      const currentPlayers = res.data.num_players;
+      const currentPlayers = res.players;
       const currentActivity = `${currentPlayers} Player on Server !`;
 
       if (client.user.presence.activities[0].name !== currentActivity) {
